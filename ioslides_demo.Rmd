@@ -1,0 +1,44 @@
+---
+title: "Demo with ioslides"
+author: DataDriven
+date: 2018-03-20
+output: 
+  ioslides_presentation: 
+    self_contained: no
+runtime: shiny
+---
+
+```{r setup, echo=FALSE, include=FALSE}
+source('global.R')
+```
+
+
+## Data
+```{r data_input_panel, echo=FALSE}
+print(getwd())
+inputPanel(
+    sliderInput("data_limit", label = "Number of data points:",
+                min = 1, max = 20, value = 10, step = 1)
+)
+```
+
+
+```{r data, echo=FALSE}
+data <- runif(1000, min = 0, max = 100)
+renderPrint(
+    data[1:input$data_limit]
+)
+```
+
+## Descriptive plot
+
+```{r echo=FALSE}
+inputPanel(
+    sliderInput("num_breaks", label = "Number of breaks in the histogram:",
+                min = 10, max = 100, value = 20, step = 5)
+)
+renderPlot(
+    ggplot2::ggplot(mapping = aes(x = data)) + geom_histogram(bins = input$num_breaks)
+ )
+```
+
