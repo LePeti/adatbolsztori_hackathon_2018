@@ -2,9 +2,7 @@
 title: "Demo with ioslides"
 author: DataDriven
 date: 2018-03-20
-output: 
-  ioslides_presentation: 
-    self_contained: no
+output: ioslides_presentation
 runtime: shiny
 ---
 
