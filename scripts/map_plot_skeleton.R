@@ -6,7 +6,7 @@ temp <- tempfile(fileext = ".zip")
 download.file("http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_01M_SH.zip", temp)
 unzip(temp, exdir = 'data')
 
-EU_NUTS <- readOGR(dsn = "./NUTS_2013_01M_SH/data", layer = "NUTS_RG_01M_2013")
+EU_NUTS <- readOGR(dsn = "data/NUTS_2013_01M_SH/data", layer = "NUTS_RG_01M_2013")
 map_nuts3 <- subset(EU_NUTS, STAT_LEVL_ == 3)
 country <- substring(as.character(map_nuts3$NUTS_ID), 1, 2)
 map_nuts3_hu <- map_nuts3[country == "HU",] %>% 
@@ -46,3 +46,17 @@ labelLayer(spdf = map_nuts3_hu, # SpatialPolygonsDataFrame used to plot he label
            col = "#690409", # color of the labels
            cex = 0.9, # size of the labels
            font = 2) # label font
+
+unzip('data/CENSUS_UNITS_PT_2011_SH.zip', exdir = 'data')
+census_units <- readOGR(dsn = 'data/CENSUS_UNITS_2011_PT/data', layer = 'CENSUS_UNIT_PT_2011')
+plot(census_units)
+
+unzip('data/COMM-01M-2013-SH.zip', exdir = 'data')
+comm <- readOGR(dsn = 'data/COMM_01M_2013_SH/data', layer = 'COMM_RG_01M_2013')
+comm_hu <- subset(comm, substring(as.character(COMM_ID), 1, 2) == "HU")
+plot(comm_hu)
+
+unzip('data/FUA_RG_100K_2015_2018.zip', exdir = 'data/FUA_RG_100K_2015_2018')
+fua <- readOGR(dsn = 'data/FUA_RG_100K_2015_2018', layer = 'FUA_RG_100K_2015_2018')
+fua_hu <- subset(fua, as.character(CNTR_CODE) == "HU")
+plot(fua_hu)
