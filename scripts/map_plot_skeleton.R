@@ -18,6 +18,16 @@ plot(map_nuts3_hu)
 
 cols <-	carto.pal(pal1 = "red.pal", n1 = 20)
 
+layoutLayer(title = 'Magyarország', # title of the map
+            author = 'Data Driven',  # no author text
+            sources = '', # no source text
+            scale = NULL, # no scale
+            col = NA, # no color for the title box 
+            coltitle = 'black', # color of the title
+            frame = FALSE,  # no frame around the map
+            bg = 'grey', # background of the map
+            extent = map_nuts3_hu) # set the extent of the map
+
 choroLayer(spdf = map_nuts3_hu, # SpatialPolygonsDataFrame of the regions
            df = map_nuts3_hu@data, # target data frame 
            var = "scaled_lakasadat", # target value
@@ -26,6 +36,13 @@ choroLayer(spdf = map_nuts3_hu, # SpatialPolygonsDataFrame of the regions
            border = "white", # color of the polygons borders
            lwd = 1, # width of the borders
            legend.pos = "right", # position of the legend
-           legend.title.txt = "",
+           legend.title.txt = "", # title of the legend
            legend.values.rnd = 2, # number of decimal in the legend values
            add = TRUE) # add the layer to the current plot
+
+labelLayer(spdf = map_nuts3_hu, # SpatialPolygonsDataFrame used to plot he labels
+           df = map_nuts3_hu@data, # data frame containing the lables
+           txt = "scaled_lakasadat", # label field in df
+           col = "#690409", # color of the labels
+           cex = 0.9, # size of the labels
+           font = 2) # label font
