@@ -1,13 +1,13 @@
 library("shinydashboard")
 
 header <- dashboardHeader(
-    title = "Mi vot?"
+    title = "Mi vót?"
 )
 
 sidebar <- dashboardSidebar(
     sidebarMenu(
-        menuItem("Hol vagyok?", tabName = "hol_vagyok", icon = icon("dashboard")),
-        menuItem("Hova menjek?", tabName = "hova_menjek", icon = icon("th")),
+        menuItem("Hol vagyok?", tabName = "hol_vagyok", icon = icon("home")),
+        menuItem("Hova menjek?", tabName = "hova_menjek", icon = icon("suitcase")),
         uiOutput("jaras_valaszto"),
         uiOutput("plus_65"),
         uiOutput("szja"),
@@ -36,5 +36,5 @@ dashboardPage(
     sidebar,
     body,
     skin = "blue",
-    title = "Mi vot"
+    title = "Mi vót"
 )
