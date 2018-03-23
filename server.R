@@ -14,8 +14,8 @@ shinyServer(function(input, output){
     })
 
     dt_keresztmetszeti_filtered <- reactive({
-        dt_keresztmetszeti[old_ratio <= input$plus_65_ratio & log_szja <= input$szja_bin] %>%
-            .[order(log_szja, -old_ratio)] %>%
+        dt_keresztmetszeti[old_ratio <= input$plus_65_ratio & log_szja <= input$szja_bin & log_nm_ar <= input$nm_ar] %>%
+            .[order(-log_nm_ar, -log_szja, -old_ratio)] %>%
             .[1:10]
     })
 
@@ -37,12 +37,17 @@ shinyServer(function(input, output){
     })
 
     output$plus_65 <- renderUI({
-        sliderInput("plus_65_ratio", "65 felettiek aranya:",
+        sliderInput("plus_65_ratio", "65 felettiek aranya kisebb mint:",
                     0.12, 0.24, 0.2, 0.02)
     })
 
     output$szja <- renderUI({
-        sliderInput("szja_bin", "Log SzJA alap csoportok:",
+        sliderInput("szja_bin", "Log SzJA alap kisebb mint:",
             7, 12, 11, 0.5)
+    })
+
+    output$nm_ar <- renderUI({
+        sliderInput("nm_ar", "Log nm ar kisebb mint:",
+            12, 16, 14, 1)
     })
 })

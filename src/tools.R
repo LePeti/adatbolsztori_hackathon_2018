@@ -35,12 +35,15 @@ plot_diffs <- function(dt) {
 
 transform_keresztmetszeti <- function(dt) {
     # dt: dt016
-    col_names <- c("lakasallomany", "epitett_lakasok_szama", "lakonepesseg", "lakonepesseg_0_14", "lakonepesseg_65",
-        "lakonepesseg_15_65", "elveszuletesek_szama", "nyilvantartott_allaskeresok_szama", "egy_adozora_juto_adoalap")
+    col_names <- c("nm_ar", "lakasallomany", "epitett_lakasok_szama",
+        "lakonepesseg", "lakonepesseg_0_14", "lakonepesseg_65", "lakonepesseg_15_65", "elveszuletesek_szama",
+        "nyilvantartott_allaskeresok_szama", "egy_adozora_juto_adoalap")
 
-    dt[, lapply(.SD, sum, na.rm = TRUE), by = jarasnev, .SDcols = col_names] %>%
+    dt[, nm_ar := as.numeric(sub(",", ".", ertekesitett_hasznalt_lakasok_atlagos_nm_ara))] %>%
+        .[, lapply(.SD, sum, na.rm = TRUE), by = jarasnev, .SDcols = col_names] %>%
         create_old_ratio() %>%
-        .[, log_szja := log(egy_adozora_juto_adoalap)]
+        .[, log_szja := log(egy_adozora_juto_adoalap)] %>%
+        .[, log_nm_ar := log(nm_ar)]
 
 }
 

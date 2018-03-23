@@ -10,7 +10,8 @@ sidebar <- dashboardSidebar(
         menuItem("Hova menjek?", tabName = "hova_menjek", icon = icon("th")),
         uiOutput("jaras_valaszto"),
         uiOutput("plus_65"),
-        uiOutput("szja")
+        uiOutput("szja"),
+        uiOutput("nm_ar")
 
 
     )
