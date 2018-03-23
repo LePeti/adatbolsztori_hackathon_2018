@@ -40,7 +40,7 @@ transform_keresztmetszeti <- function(dt) {
 
     dt[, lapply(.SD, sum, na.rm = TRUE), by = jarasnev, .SDcols = col_names] %>%
         create_old_ratio() %>%
-        .[, szja_bin := cut(log(egy_adozora_juto_adoalap), breaks = 5)]
+        .[, log_szja := log(egy_adozora_juto_adoalap)]
 
 }
 
