@@ -9,6 +9,13 @@ shinyServer(function(input, output){
 
     dt_keresztmetszeti <- transform_keresztmetszeti(dt_keresztmetszeti_raw)
 
+    map_jarasok <- readOGR(dsn = "data/adm_hun/", layer = "adm_jarasok")
+    
+    map_jarasok@data <- as.data.table(map_jarasok@data) %>% 
+        copy() %>% 
+        .[, jarasnev := substr(NAME, 1, nchar(as.character(NAME)) - 6)] %>% 
+        merge(dt_keresztmetszeti, by = "jarasnev", all.x = TRUE)
+    
     dt_idosoros_jaras <- reactive({
         dt_idosoros[jarasnev == input$jarasok]
     })
@@ -45,4 +52,9 @@ shinyServer(function(input, output){
         sliderInput("szja_bin", "Log SzJA alap csoportok:",
             7, 12, 11, 0.5)
     })
+    
+    output$map <- renderPlot(
+        dt_keresztmetszeti_filtered() %>%
+            plot_top_10()
+    )
 })

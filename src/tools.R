@@ -48,3 +48,20 @@ create_old_ratio <- function(dt) {
     dt[, old_ratio := lakonepesseg_65/lakonepesseg]
 }
 
+plot_top_10 <- function(dt) {
+    plot(map_jarasok)
+    
+    cols <-	carto.pal(pal1 = "red.pal", n1 = 20)
+    
+    choroLayer(spdf = map_jarasok, # SpatialPolygonsDataFrame of the regions
+               df = dt, # target data frame 
+               var = "egy_adozora_juto_adoalap", # target value
+               # breaks = c(0,5,10,15,20,25,30,35,100), # list of breaks
+               col = cols, # colors 
+               border = "white", # color of the polygons borders
+               lwd = 1, # width of the borders
+               legend.pos = "right", # position of the legend
+               legend.title.txt = "", # title of the legend
+               legend.values.rnd = 2, # number of decimal in the legend values
+               add = TRUE) # add the layer to the current plot   
+}
