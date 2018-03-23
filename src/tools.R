@@ -29,7 +29,7 @@ plot_diffs <- function(dt) {
     ggplot(dt, aes(valtozo, rel_diff)) +
         geom_col() +
         scale_y_continuous(labels = scales::percent) +
-        labs(x = "", y = "relativ valtozas") +
+        labs(title = "Mi történt az én járásomban 2016 vs 2008?" , x = "", y = "Relatív változás") +
         theme_light()
 }
 
@@ -71,13 +71,13 @@ plot_top_10 <- function(dt) {
     
     choroLayer(spdf = map_jarasok, # SpatialPolygonsDataFrame of the regions
                df = dt, # target data frame 
-               var = "egy_adozora_juto_adoalap", # target value
+               var = "nm_ar", # target value
                # breaks = c(0,5,10,15,20,25,30,35,100), # list of breaks
                col = cols, # colors 
                border = "white", # color of the polygons borders
                lwd = 1, # width of the borders
                legend.pos = "right", # position of the legend
-               legend.title.txt = "", # title of the legend
+               legend.title.txt = "Top járások neked", # title of the legend
                legend.values.rnd = 2, # number of decimal in the legend values
                add = TRUE) # add the layer to the current plot   
 }

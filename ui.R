@@ -26,7 +26,7 @@ body <- dashboardBody(
         tabItem(tabName = "hova_menjek",
             fluidRow(box(width = NULL, status = "primary",
                          div(style = 'overflow-x: scroll', DT::dataTableOutput('hol_lakj'))),
-                     box(plotOutput('map'))
+                     box(plotOutput('map'), width = 12)
             )
         )
     )
