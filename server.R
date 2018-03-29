@@ -60,7 +60,7 @@ shinyServer(function(input, output){
     
     output$map <- renderPlot(
         dt_keresztmetszeti_filtered() %>%
-            plot_top_10()
+            plot_top_10(map_jarasok)
     )
 
 })

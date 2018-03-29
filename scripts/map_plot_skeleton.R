@@ -60,3 +60,27 @@ unzip('data/FUA_RG_100K_2015_2018.zip', exdir = 'data/FUA_RG_100K_2015_2018')
 fua <- readOGR(dsn = 'data/FUA_RG_100K_2015_2018', layer = 'FUA_RG_100K_2015_2018')
 fua_hu <- subset(fua, as.character(CNTR_CODE) == "HU")
 plot(fua_hu)
+
+
+map_jarasok <- readOGR(dsn = "data/adm_hun/", layer = "adm_jarasok")
+
+map_jarasok@data <- as.data.table(map_jarasok@data) %>% 
+    copy() %>% 
+    .[, jarasnev := substr(NAME, 1, nchar(as.character(NAME)) - 6)] %>% 
+    merge(dt_keresztmetszeti, by = "jarasnev", all.x = TRUE)
+
+plot(map_jarasok)
+
+cols <-	carto.pal(pal1 = "red.pal", n1 = 20)
+
+choroLayer(spdf = map_jarasok, # SpatialPolygonsDataFrame of the regions
+           df = map_jarasok@data, # target data frame 
+           var = "egy_adozora_juto_adoalap", # target value
+           # breaks = c(0,5,10,15,20,25,30,35,100), # list of breaks
+           col = cols, # colors 
+           border = "white", # color of the polygons borders
+           lwd = 1, # width of the borders
+           legend.pos = "right", # position of the legend
+           legend.title.txt = "", # title of the legend
+           legend.values.rnd = 2, # number of decimal in the legend values
+           add = TRUE) # add the layer to the current plot

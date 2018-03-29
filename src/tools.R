@@ -64,7 +64,7 @@ linear_model <- function(dt) {
     lm(nm_ar ~ lakasallomany + epitett_lakasok_szama + lakonepesseg + lakonepesseg_0_14 + lakonepesseg_65 + lakonepesseg_15_65 + elveszuletesek_szama + nyilvantartott_allaskeresok_szama + egy_adozora_juto_adoalap, data = dt)
 }
 
-plot_top_10 <- function(dt) {
+plot_top_10 <- function(dt, map_jarasok) {
     plot(map_jarasok)
     
     cols <-	carto.pal(pal1 = "red.pal", n1 = 20)
